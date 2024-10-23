@@ -6,8 +6,9 @@ app.use(express.json())
 const PORT = 3000
 
 // Definir una ruta
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.send('¡Hola, mundo!');
+    console.log('App get')
   });
   
   // Iniciar el servidor
