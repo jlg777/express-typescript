@@ -6,6 +6,6 @@ export interface DiaryEntry {
     date: string,
     weather: Weather,
     visibility: Visibility,
-    commet: string,
+    comment: string,
 }
 
