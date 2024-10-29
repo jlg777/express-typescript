@@ -1,5 +1,6 @@
-import { DiaryEntry, NonSentiveInfoDiaryEntry } from '../types'
+import { DiaryEntry, NonSentiveInfoDiaryEntry, Visibility, Weather } from '../types'
 import diaryData from './diaries.json'
+import { v4 as uuidv4 } from 'uuid' // Importa la función uuid
 
 const diaries: DiaryEntry[] = diaryData as DiaryEntry[]
 
@@ -18,6 +19,16 @@ export const getEntriesWithoutSensitiveInfo = (): NonSentiveInfoDiaryEntry[] => 
   })
 }
 
-export const addEntry = (): void => {}
+export const addEntry = (date: string, weather: Weather, visibility: Visibility, comment: string): DiaryEntry => {
+  const newDiaryEntry = {
+    id: uuidv4(),
+    date,
+    weather,
+    visibility,
+    comment
+  }
+  diaries.push(newDiaryEntry)
+  return newDiaryEntry
+}
 
 // const diariesWithoutSensitiveInfo = getEntriesWithoutSensitiveInfo()

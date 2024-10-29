@@ -1,19 +1,29 @@
 import Express from 'express'
-import { findById, getEntriesWithoutSensitiveInfo } from '../services/diaryServices'
+import { addEntry, findById, getEntriesWithoutSensitiveInfo } from '../services/diaryServices'
 
 const router = Express.Router()
 
 router.get('/', (req, res) => {
-  res.send(getEntriesWithoutSensitiveInfo())
+  try {
+    res.send(getEntriesWithoutSensitiveInfo())
+  } catch (error) {
+    res.send(getEntriesWithoutSensitiveInfo())
+  }
 })
 
 router.get('/:id', (req, res) => {
-  const diary = findById(Number(req.params.id))
-  res.send(diary)
+  try {
+    const diary = findById(Number(req.params.id))
+    res.send(diary)
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener la entrada del diario.' })
+  }
 })
 
 router.post('/', (req, res) => {
-  res.send('Saving diaries')
+  const { date, weather, visibility, comment } = req.body
+  const newDiaryEntry = addEntry(date, weather, visibility, comment)
+  res.json(newDiaryEntry)
 })
 
 export default router
